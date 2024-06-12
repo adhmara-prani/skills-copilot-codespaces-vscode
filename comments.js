@@ -1,39 +1,18 @@
 // Create a web server
-const express = require('express');
-const app = express();
-// Create a port
-const port = 3000;
+// Load the 'http' module
+var http = require('http');
 
-// Get the path
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
+// Create a web server
+http.createServer(function (request, response) {
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.write('<html><body>' +
+        '<h1>Comments</h1>' +
+        '<form method="post" action="/comments">' +
+        '<textarea name="comment" rows="4" cols="50"></textarea><br>' +
+        '<input type="submit" value="Submit">' +
+        '</form>' +
+        '</body></html>');
+    response.end();
+}).listen(3000);
 
-// Get the comments
-app.get('/comments', (req, res) => {
-    res.send('Comments');
-});
-
-// Post the comments
-app.post('/comments', (req, res) => {
-    res.send('Post Comments');
-});
-
-// Put the comments
-app.put('/comments', (req, res) => {
-    res.send('Put Comments');
-});
-
-// Delete the comments
-app.delete('/comments', (req, res) => {
-    res.send('Delete Comments');
-});
-
-// Listen to the port
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
-// Run the server
-// node comments.js
-// Open the browser and type localhost:3000
+console.log('Server running at http://localhost:3000/comments');
